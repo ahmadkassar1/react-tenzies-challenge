@@ -1,16 +1,29 @@
 import "./Dice.css";
 
-export default function Dice(dice) {
+export default function Dice({
+  id,
+  value,
+  isHeld,
+  position,
+  disabled,
+  onToggle,
+  buttonRef,
+}) {
   return (
     <button
-      onClick={() => dice.triggerButton(dice.id)}
-      className={`dice ${dice.isHeld ? "held" : ""}`}
+      ref={buttonRef}
+      type="button"
+      onClick={() => onToggle(id)}
+      disabled={disabled}
+      aria-label={`Die ${position}, value ${value}`}
+      aria-pressed={isHeld}
+      className={`dice ${isHeld ? "held" : ""}`}
     >
-      <div className="dice-inner">
-        <span className="dice-value">{dice.value}</span>
-        {dice.isHeld && <div className="lock-icon">🔒</div>}
-      </div>
-      <div className="dice-glow"></div>
+      <span className="dice-inner" aria-hidden="true">
+        <span className="dice-value">{value}</span>
+        {isHeld && <span className="lock-icon">🔒</span>}
+      </span>
+      <span className="dice-glow" aria-hidden="true" />
     </button>
   );
 }
