@@ -1,156 +1,52 @@
 .dice {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(145deg, #2d3748, #1a202c);
+  width: 100%;
+  max-width: 60px;
+  min-width: 44px;
+  min-height: 44px;
+  aspect-ratio: 1;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  position: relative;
+  border: 2px solid rgb(167 243 208 / 30%);
   border-radius: 12px;
-  border: 2px solid rgba(167, 243, 208, 0.3);
+  background: linear-gradient(145deg, #2d3748, #1a202c);
+  color: #fff;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgb(0 0 0 / 30%);
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
 }
-
-.dice::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.dice:hover::before {
-  opacity: 1;
-}
-
-.dice-inner {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dice-value {
-  font-weight: 900;
-  font-size: 2rem;
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
-}
-
-.dice-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
-  background: radial-gradient(
-    circle,
-    rgba(167, 243, 208, 0.4) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.dice:hover {
-  transform: translateY(-4px) scale(1.05);
-  border-color: rgba(167, 243, 208, 0.6);
-  box-shadow: 0 8px 25px rgba(167, 243, 208, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.dice:hover .dice-glow {
-  opacity: 1;
-}
-
-.dice:active {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 15px rgba(167, 243, 208, 0.2);
-}
-
-.dice.held {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-color: rgba(167, 243, 208, 0.8);
-  animation: heldPulse 2s ease-in-out infinite;
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-@keyframes heldPulse {
-  0%,
-  100% {
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-  50% {
-    box-shadow: 0 4px 30px rgba(16, 185, 129, 0.8),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-}
-
-.dice.held .dice-value {
-  color: #fff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
-  transform: scale(1.1);
-}
-
-.dice.held:hover {
-  transform: translateY(-4px) scale(1.05);
+.dice:hover:not(:disabled) {
   border-color: #a7f3d0;
 }
-
+.dice-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.dice-value {
+  font-weight: 900;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+}
+.dice.held {
+  background: linear-gradient(135deg, #047857, #065f46);
+  border-color: #a7f3d0;
+}
 .lock-icon {
   position: absolute;
-  bottom: 2px;
+  bottom: 1px;
   right: 2px;
-  font-size: 0.7rem;
-  opacity: 0.9;
-  animation: lockBounce 0.5s ease;
+  font-size: 0.65rem;
 }
-
-@keyframes lockBounce {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-}
-
-@media (max-width: 640px) {
-  .dice {
-    width: 50px;
-    height: 50px;
-  }
-
-  .dice-value {
-    font-size: 1.5rem;
-  }
-
-  .lock-icon {
-    font-size: 0.6rem;
-  }
+.dice-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 14px rgb(167 243 208 / 12%);
+  pointer-events: none;
 }
