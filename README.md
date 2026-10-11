@@ -2,6 +2,8 @@
 
 A small React dice game. Hold matching numbers and roll the rest until all ten dice match. Your lowest roll count is saved in this browser.
 
+[Play Tenzies](https://react-tenzies-challenge.vercel.app/)
+
 ## Run locally
 
 Use Node.js 24 and npm. The repository includes `.nvmrc` and a committed lockfile.
@@ -22,7 +24,7 @@ npm run build
 npm run preview
 ```
 
-`build` produces the static site in `dist/`. `preview` serves that production build locally. A public deployment is not yet verified; this README intentionally has no placeholder demo link.
+`build` produces the static site in `dist/`. `preview` serves that production build locally. The live demo is hosted on Vercel, connected to this repository's `main` branch using the Vite preset and Node 24. No environment variables are needed.
 
 ## Playing
 
@@ -62,6 +64,8 @@ Saving rereads the current best before writing, so an observed better score is p
 ## Verification
 
 Node's built-in test runner checks held values and stable IDs, completed-round locking, ineffective rolls, strict record improvement, zero and malformed scores, denied storage, quota failure and preservation of unrelated data. GitHub Actions runs lint with zero warnings, these tests and the production build on Node 24. Browser interaction and layout checks are separate from these unit tests; they do not certify every device or screen reader.
+
+On 11 October 2026, the production demo passed browser checks for keyboard holds, held values across rolls, all-held guidance, a natural win, restart focus and best-score persistence after reload. Layout checks covered seven sizes from 280px to 1440px, including phone landscape, with all ten dice reachable and no horizontal page overflow. Storage failures are covered by mock-based tests; physical devices and full screen-reader flows have not been verified.
 
 ## License
 
